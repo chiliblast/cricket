@@ -5,11 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Cricket Match</title>
     <style>
-     
+        body {
+            margin: 0; /* Remove default margin */
+            overflow: hidden; /* Prevent scrollbars */
+        }
+        #specific-port {
+            width: 400px; /* Match widget size */
+            height: 300px; /* Match widget size */
+            position: absolute; /* Positioning */
+            top: 0; /* Adjust as needed */
+            left: 0; /* Adjust as needed */
+        }
+        /* Hide all other elements */
+        *:not(#specific-port) {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div>
+    <div id="specific-port">
         <!-- CricketData.org widget script -->
         <script src="https://cdorgapi.b-cdn.net/widgets/matchlist.js"></script>
     </div>
