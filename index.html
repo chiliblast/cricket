@@ -3,15 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Cricket Match</title>
+    <title>Cricket Score Overlay</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-     
+        .score-bar {
+            background-color: #343a40;
+            color: #fff;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            z-index: 10;
+            font-weight: bold;
+        }
+        .team, .score, .overs {
+            font-size: 1.4rem;
+        }
+        .batsman-info, .bowler-info {
+            font-size: 1.2rem;
+        }
+        .power-play, .balls-played, .overs-bowled {
+            font-size: 0.85rem;
+        }
+        .match {
+            position: relative;
+            height: 55px;
+            display: flex; /* Enable Flexbox */
+            flex-direction: column; /* Stack items vertically */
+            justify-content: center; /* Center items vertically */
+            align-items: center; /* Center items horizontally */
+            text-align: center; /* Center text */
+        }
+        .match img {
+            position: absolute;
+            top: 0;
+            left: 50px;
+        }
+        .match-type, .series {
+            font-size: 0.8rem;
+            font-weight: lighter; 
+            display: block;
+            text-transform: none;
+        }
+
+        .widget {
+            background-image: url('./assets/images/stadium.jpg');
+            background-size: cover;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 900px;
+        }
+
+        .widget .match-info, .widget .scorecard {
+            text-align: center;
+        }
+
+        .widget .match-info h2, .widget .scorecard h2 {
+            margin: 10px 0;
+            color: #333;
+        } 
+
+        .widget .match-info p, .widget .scorecard p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .widget .match-info .match-info-row, .widget .scorecard .match-info-row {
+            background-color: rgba(233, 236, 239, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0; /* Spacing between rows */
+        }
+
+        .widget .match-info .match-info-row:nth-child(even) {
+            background-color: rgba(248, 249, 250, 0.7);
+        }
+
+        .widget .scorecard .match-info-row:nth-child(even) {
+            background-color: rgba(248, 249, 250, 0.7);
+        }
+    
     </style>
 </head>
 <body>
-    <div>
-        <!-- CricketData.org widget script -->
-        <script src="https://cdorgapi.b-cdn.net/widgets/matchlist.js"></script>
+
+    <!-- Score Bar -->
+    <div class="score-bar">
+        <div class="container-fluid">
+            <div class="row d-flex align-items-center justify-content-between text-uppercase">
+                
+                <!-- Team A Section -->
+                <div class="col-md-6 d-flex p-2 align-items-center" id="team-a">
+                    <div class="col-auto d-flex align-items-center me-4">
+                        <img class="me-2" height="40" id="flag-a" src="">
+                        <div class="team me-2" id="name-a">Team A</div>
+                        <div class="score me-1">120-3</div>
+                        <div class="overs me-1">15.4</div>
+                        <div class="power-play">P1</div>
+                    </div>
+
+                    <!-- Batsman A -->
+                    <div class="col-auto d-flex batsman-info me-4 align-items-center">
+                        <span class="batsman-name me-2"><img class="me-1" height="25px" src="./assets/images/batting.png">Batsman A</span>
+                        <span class="batsman-score me-1">45</span>
+                        <span class="balls-played">26</span>
+                    </div>
+
+                    <!-- Batsman B -->
+                    <div class="col-auto d-flex batsman-info me-4 align-items-center">
+                        <span class="batsman-name me-2">Batsman B</span>
+                        <span class="batsman-score me-1">30</span>
+                        <span class="balls-played">26</span>
+                    </div>
+                </div>
+
+                <!-- Match Section -->
+                <div class="col-md-2 match align-items-center">
+                    <img height="55" src="./assets/images/trophy.png">
+                    <span class="match-type">T-20</span>
+                    <span class="series">Asia Cup</span>
+                </div>
+
+
+                <!-- Team B Section (Bowling) -->
+                <div class="col-md-4 d-flex justify-content-end p-2 align-items-center" id="team-b">
+                    <div class="col-auto d-flex bowler-info me-4 align-items-center">
+                        <span class="bowler-name me-2"><img class="me-1" height="25px" src="./assets/images/bowling.png">Bowler</span>
+                        <span class="bowler-score me-1">0-25</span>
+                        <span class="overs-bowled">2.3</span>
+                    </div>
+
+                    <div class="col-auto d-flex align-items-center">
+                        <div class="score me-2">180-7</div>
+                        <div class="team me-2" id="name-b">Team B</div>
+                        <img height="40" id="flag-b" src="">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="widget">
+        <div class="match-info" id="match-info">
+            <!-- Match details will be populated here -->
+        </div>
+        <div class="scorecard" id="scorecard">
+            
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Load the teams from the external JSON file
+            $.getJSON('./assets/data/teams.json', function(response) {
+                // Hardcoded playing teams
+                var teamAId = "pk"; // Pakistan
+                var teamBId = "au"; // Australia
+
+                // Function to set team info dynamically
+                function setTeamInfo(teamId, teamElement, flagElement, nameElement, isLightToDark) {
+                    var team = response.teams.find(t => t.id === teamId);
+                    if (team) {
+                        $(flagElement).attr("src", 'assets/' + team.genericFlag);
+                        $(nameElement).text(team.abbreviation);
+                        // Set gradient background
+                        if (isLightToDark) {
+                            $(teamElement).css("background", `linear-gradient(to right, ${team.lightColor}, ${team.color})`);
+                            teamAColor = team.color; // Store Team A color
+                        } else {
+                            $(teamElement).css("background", `linear-gradient(to right, ${team.color}, ${team.lightColor})`);
+                            teamBColor = team.color; // Store Team B color
+                        }
+                    }
+                }
+
+                let teamAColor, teamBColor;
+
+                // Set team info for both teams
+                setTeamInfo(teamAId, "#team-a", "#flag-a", "#name-a", true);  // Light to dark for Team A
+                setTeamInfo(teamBId, "#team-b", "#flag-b", "#name-b", false); // Dark to light for Team B
+            
+                if (teamAColor && teamBColor) {
+                    $(".match").css("background", `linear-gradient(to right, ${teamAColor}, ${teamBColor})`);
+                }
+            });
+
+            $.getJSON('./assets/data/match-info.json', function(response) {
+                if (response.status === 'success') {
+                const matchDetails = response.data;
+
+                const matchInfoHTML = `
+                    <h2>${matchDetails.name}</h2>
+                    <div class="match-info-row">
+                        <p><strong>Match Type:</strong> ${matchDetails.matchType.toUpperCase()}</p>
+                    </div>
+                    <div class="match-info-row">
+                        <p><strong>Status:</strong> ${matchDetails.status}</p>
+                    </div>
+                    <div class="match-info-row">
+                        <p><strong>Venue:</strong> ${matchDetails.venue}</p>
+                    </div>
+                    <div class="match-info-row">
+                        <p><strong>Date:</strong> ${matchDetails.date}</p>
+                    </div>
+                    <div class="score match-info-row">
+                        <p>${matchDetails.score[0].inning}: ${matchDetails.score[0].r} (${matchDetails.score[0].w} wickets, ${matchDetails.score[0].o} overs)</p>
+                        <p>${matchDetails.score[1].inning}: ${matchDetails.score[1].r} (${matchDetails.score[1].w} wickets, ${matchDetails.score[1].o} overs)</p>
+                    </div>
+                    <div class="match-info-row">
+                        <p><strong>Toss Winner:</strong> ${matchDetails.tossWinner} (Chose to ${matchDetails.tossChoice})</p>
+                    </div>
+                    <div class="match-info-row">
+                        <p><strong>Match Winner:</strong> ${matchDetails.matchWinner}</p>
+                    </div>
+                `;
+
+                $('#match-info').html(matchInfoHTML);
+            } else {
+                $('#match-info').html('<p>Error fetching match information.</p>');
+            }
+            });
+
+            $.getJSON("./assets/data/scorecard.json", function(data) {
+                const matchData = data.data;
+                $(".scorecard").empty();
+
+                // Display Match Info
+                let matchInfoHtml = `
+                    <div class="match-info-row p-3 rounded mb-4">
+                        <h3>${matchData.name}</h3>
+                        <p><strong>Match Type:</strong> ${matchData.matchType.toUpperCase()}</p>
+                        <p><strong>Date:</strong> ${matchData.date}</p>
+                        <p><strong>Venue:</strong> ${matchData.venue}</p>
+                        <p><strong>Status:</strong> ${matchData.status}</p>
+                        <p><strong>Toss Winner:</strong> ${matchData.tossWinner} chose to ${matchData.tossChoice}</p>
+                        <p><strong>Match Winner:</strong> ${matchData.matchWinner}</p>
+                    </div>
+                `;
+                $("#scorecard").append(matchInfoHtml);
+
+                // Display each inning's score and scorecard details
+                matchData.scorecard.forEach((inning) => {
+                    let inningHtml = `
+                        <div class="match-info-row p-3 rounded border mb-3">
+                            <h5>${inning.inning}</h5>
+                            <p><strong>Score:</strong> ${inning.totals.R}/${inning.totals.W} (${inning.totals.O} Overs)
+                            <strong>Run Rate:</strong> ${inning.totals.RR}</p>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5>Batting</h5>
+                                    ${inning.batting.map(batsman => `
+                                        <p><strong>${batsman.batsman.name}</strong><br>${batsman.r} runs (${batsman.b} balls), 
+                                        4s: ${batsman["4s"]}, 6s: ${batsman["6s"]}, SR: ${batsman.sr}
+                                        <span class="text-muted">(${batsman["dismissal-text"]})</span></p>
+                                    `).join("")}
+                                </div>
+
+                                <div class="col-md-3">
+                                    <h5>Bowling</h5>
+                                    ${inning.bowling.map(bowler => `
+                                        <p><strong>${bowler.bowler.name}</strong><br>${bowler.o} Overs, ${bowler.r} Runs, 
+                                        ${bowler.w} Wickets, No Balls: ${bowler.nb}, Wides: ${bowler.wd}, Eco: ${bowler.eco}</p>
+                                    `).join("")}
+                                </div>
+
+                                <div class="col-md-3">
+                                    <h5>Catching</h5>
+                                    ${inning.catching.map(catchData => `
+                                        <p><strong>${catchData.catcher.name}</strong><br>Catches: ${catchData.catch}, 
+                                        Runouts: ${catchData.runout}, Stumped: ${catchData.stumped}</p>
+                                    `).join("")}
+                                </div>
+
+                                <div class="col-md-3">
+                                    <h5>Extras</h5>
+                                    <p>Runs: ${inning.extras.r} 
+                                    (Byes: ${inning.extras.b}, Leg Byes: ${inning.extras.lb}, 
+                                    Wides: ${inning.extras.w}, No Balls: ${inning.extras.nb})</p>
+                                </div>
+                            </div>
+
+                            <h5>Total</h5>
+                            <p>Runs: ${inning.totals.R}, Wickets: ${inning.totals.W}, Overs: ${inning.totals.O}</p>
+                        </div>
+                    `;
+
+                    $("#scorecard").append(inningHtml);
+                });
+            });
+
+
+
+
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

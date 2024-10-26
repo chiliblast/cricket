@@ -1,0 +1,169 @@
+{
+    "apikey": "1971b689-e4de-493b-8c1c-be3eb3cb7e6f",
+    "data": {
+      "id": "0b12f428-98ab-4009-831d-493d325bc555",
+      "name": "Sunrisers Hyderabad vs Kolkata Knight Riders, 25th Match",
+      "matchType": "t20",
+      "status": "Sunrisers Hyderabad won by 7 wkts",
+      "venue": "Brabourne Stadium, Mumbai",
+      "date": "2022-04-15",
+      "dateTimeGMT": "2022-04-15T14:00:00",
+      "teams": [
+        "Sunrisers Hyderabad",
+        "Kolkata Knight Riders"
+      ],
+      "score": [
+        {
+          "r": 175,
+          "w": 8,
+          "o": 20,
+          "inning": "Kolkata Knight Riders Inning 1"
+        },
+        {
+          "r": 176,
+          "w": 3,
+          "o": 17.5,
+          "inning": "Sunrisers Hyderabad Inning 1"
+        }
+      ],
+      "tossWinner": "Sunrisers Hyderabad",
+      "tossChoice": "bowl",
+      "matchWinner": "Sunrisers Hyderabad",
+      "series_id": "47b54677-34de-4378-9019-154e82b9cc1a",
+      "scorecard": [
+        {
+          "batting": [
+            {
+              "batsman": {
+                "id": "c3236037-6694-404a-8f01-9ad880564ea9",
+                "name": "Venkatesh Iyer"
+              },
+              "dismissal": "bowled",
+              "bowler": {
+                "id": "d8826d0d-ef95-4dce-a47a-b09b97f49f07",
+                "name": "T Natarajan"
+              },
+              "dismissal-text": "b T Natarajan",
+              "r": 6,
+              "b": 13,
+              "4s": 1,
+              "6s": 0,
+              "sr": 46.15
+            }
+          ],
+          "bowling": [
+            {
+              "bowler": {
+                "id": "3f3ecf51-8411-4046-9477-18c0fe3da6ac",
+                "name": "Bhuvneshwar Kumar"
+              },
+              "o": 4,
+              "m": 0,
+              "r": 37,
+              "w": 1,
+              "nb": 0,
+              "wd": 1,
+              "eco": 9.2
+            }
+          ],
+          "catching": [
+            {
+              "stumped": 0,
+              "runout": 0,
+              "catch": 2,
+              "catcher": {
+                "id": "4e8ab9cd-c5af-430e-887b-d22bf74ad052",
+                "name": "Nicholas Pooran"
+              }
+            }
+          ],
+          "extras": {
+            "r": 9,
+            "b": 2,
+            "lb": 4,
+            "w": 3,
+            "nb": 0,
+            "p": 0
+          },
+          "totals": {
+            "R": 175,
+            "O": 20,
+            "W": 8,
+            "RR": 8.75
+          },
+          "inning": "Kolkata Knight Riders Inning 1"
+        },
+        {
+          "batting": [
+            {
+              "batsman": {
+                "id": "83fe6ab6-d63c-420e-9416-a93d59a9a964",
+                "name": "Abhishek Sharma"
+              },
+              "dismissal": "bowled",
+              "bowler": {
+                "id": "13b3d56e-0fba-4d31-a174-d211211404e2",
+                "name": "Pat Cummins"
+              },
+              "dismissal-text": "b Cummins",
+              "r": 3,
+              "b": 10,
+              "4s": 0,
+              "6s": 0,
+              "sr": 30
+            }
+          ],
+          "bowling": [
+            {
+              "bowler": {
+                "id": "1985ba7d-1f0a-4d4f-98d2-3ea741309a1a",
+                "name": "Umesh Yadav"
+              },
+              "o": 4,
+              "m": 0,
+              "r": 31,
+              "w": 0,
+              "nb": 0,
+              "wd": 1,
+              "eco": 7.8
+            }
+          ],
+          "catching": [
+            {
+              "stumped": 0,
+              "runout": 0,
+              "catch": 1,
+              "catcher": {
+                "id": "c3236037-6694-404a-8f01-9ad880564ea9",
+                "name": "Venkatesh Iyer"
+              }
+            }
+          ],
+          "extras": {
+            "r": 12,
+            "b": 4,
+            "lb": 0,
+            "w": 8,
+            "nb": 0,
+            "p": 0
+          },
+          "totals": {
+            "R": 176,
+            "O": 17.5,
+            "W": 3,
+            "RR": 9.87
+          },
+          "inning": "Sunrisers Hyderabad Inning 1"
+        }
+      ]
+    },
+    "status": "success",
+    "info": {
+      "hitsToday": 10,
+      "hitsLimit": 500,
+      "credits": 0,
+      "server": 9,
+      "queryTime": 521.2308,
+      "s": 0
+    }
+  }

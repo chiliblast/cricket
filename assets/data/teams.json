@@ -1,0 +1,92 @@
+{
+    "teams": [
+        {
+            "id": "zw",
+            "name": "Zimbabwe",
+            "genericFlag": "./flags/zw.svg",
+            "color": "#E70000",
+            "lightColor": "#FF4D4D",
+            "abbreviation": "ZIM"
+        },
+        {
+            "id": "pk",
+            "name": "Pakistan",
+            "genericFlag": "./flags/pk.svg",
+            "color": "#006600",
+            "lightColor": "#33CC33",
+            "abbreviation": "PAK"
+        },
+        {
+            "id": "in",
+            "name": "India",
+            "genericFlag": "./flags/in.svg",
+            "color": "#FF9933",
+            "lightColor": "#FFC74D",
+            "abbreviation": "IND"
+        },
+        {
+            "id": "au",
+            "name": "Australia",
+            "genericFlag": "./flags/au.svg",
+            "color": "#002E5D",
+            "lightColor": "#4D88B2",
+            "abbreviation": "AUS"
+        },
+        {
+            "id": "eng",
+            "name": "England",
+            "genericFlag": "./flags/eng.svg",
+            "color": "#FF0000",
+            "lightColor": "#FF4D4D",
+            "abbreviation": "ENG"
+        },
+        {
+            "id": "sa",
+            "name": "South Africa",
+            "genericFlag": "./flags/sa.svg",
+            "color": "#007A33",
+            "lightColor": "#4DBE6E",
+            "abbreviation": "SAF"
+        },
+        {
+            "id": "wi",
+            "name": "West Indies",
+            "genericFlag": "./flags/wi.svg",
+            "color": "#AB4D83",
+            "lightColor": "#D59BBD",
+            "abbreviation": "WI"
+        },
+        {
+            "id": "nz",
+            "name": "New Zealand",
+            "genericFlag": "./flags/nz.svg",
+            "color": "#000000",
+            "lightColor": "#333333",
+            "abbreviation": "NZL"
+        },
+        {
+            "id": "bd",
+            "name": "Bangladesh",
+            "genericFlag": "./flags/bd.svg",
+            "color": "#D72A25",
+            "lightColor": "#F2504E",
+            "abbreviation": "BAN"
+        },
+        {
+            "id": "af",
+            "name": "Afghanistan",
+            "genericFlag": "./flags/af.svg",
+            "color": "#009A00",
+            "lightColor": "#66CC66",
+            "abbreviation": "AFG"
+        },
+        {
+            "id": "lk",
+            "name": "Sri Lanka",
+            "genericFlag": "./flags/lk.svg",
+            "color": "#FFB300",
+            "lightColor": "#FFE64D",
+            "abbreviation": "SLK"
+        }
+    ]
+}

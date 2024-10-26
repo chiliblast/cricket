@@ -1,0 +1,43 @@
+{
+    "apikey": "66d55bba-57c6-441f-b86f-5a73c6b5d56a",
+    "data": {
+      "id": "2d448290-d882-4e67-9a4a-f62dfea9a51a",
+      "name": "Western Australia vs New South Wales, Final",
+      "matchType": "odi",
+      "status": "Western Australia won by 18 runs",
+      "venue": "Junction Oval, Melbourne",
+      "date": "2022-03-10",
+      "dateTimeGMT": "2022-03-10T23:30:00",
+      "teams": [
+        "Western Australia",
+        "New South Wales"
+      ],
+      "score": [
+        {
+          "r": 207,
+          "w": 10,
+          "o": 46.3,
+          "inning": "Western Australia Inning 1"
+        },
+        {
+          "r": 225,
+          "w": 9,
+          "o": 50,
+          "inning": "New South Wales Inning 1"
+        }
+      ],
+      "tossWinner": "Western Australia",
+      "tossChoice": "bat",
+      "matchWinner": "Western Australia",
+      "series_id": "ff5aa3f3-7164-4766-be90-3b64783257a0",
+      "fantasyEnabled": false
+    },
+    "status": "success",
+    "info": {
+      "hitsToday": 21,
+      "hitsLimit": 500,
+      "credits": 0,
+      "server": 11,
+      "queryTime": 15.7629
+    }
+  }
